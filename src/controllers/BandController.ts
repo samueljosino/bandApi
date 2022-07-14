@@ -13,7 +13,7 @@ class BandController {
 
   static create(req: Request, res: Response, next: NextFunction) {
     // console.log(req.body);
-    // console.log("Esse controller cria uma banda");
+    // console.log("Esse controller cria uma  banda") ;
     // res.status(200).json({});
     const { id, name, style } = req.body;
     const response = BandsService.create(id, name, style);
