@@ -3,7 +3,7 @@ import { BandController } from "../../controllers/BandController";
 
 const bandRouter = Router();
 
-bandRouter.get("/", BandController.find);
+bandRouter.get("/", BandController.findAll);
 
 bandRouter.post("/", BandController.create);
 

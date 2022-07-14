@@ -1,18 +1,23 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, response, Response } from "express";
+import { BandsService } from "../services/BandsService";
 
 class BandController {
-  static find(req: Request, res: Response, next: NextFunction) {
-    console.log(req.query);
-    console.log(
-      "Esse controller lista todos os dados das bandas que esta no query"
-    );
-    res.status(200).json({});
+  static findAll(req: Request, res: Response, next: NextFunction) {
+    // console.log(req.query);
+    // console.log(
+    //   "Esse controller lista todos os dados das bandas que esta no query"
+    // // );
+    const response = BandsService.findAll();
+    res.status(200).json(response);
   }
 
   static create(req: Request, res: Response, next: NextFunction) {
-    console.log(req.body);
-    console.log("Esse controller cria uma banda");
-    res.status(200).json({});
+    // console.log(req.body);
+    // console.log("Esse controller cria uma banda");
+    // res.status(200).json({});
+    const { id, name, style } = req.body;
+    const response = BandsService.create(id, name, style);
+    res.status(200).json(response);
   }
 
   static update(req: Request, res: Response, next: NextFunction) {
