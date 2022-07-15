@@ -21,10 +21,10 @@ class BandController {
   static update(req: Request, res: Response, next: NextFunction) {
     // console.log(req.body);
     // console.log( `Esse controller atualiza uma banda espeficida pelo id ${req.params.id}` );
-    // TODO merge
-    const { id, name, style } = req.body;
-    const response = BandsService.update(id, name, style);
-    res.status(200).json({ response });
+    const { id } = req.params;
+    const { name } = req.body;
+    const response = BandsService.update(id as any, name);
+    res.status(200).json(response);
   }
 
   static async delete(req: Request, res: Response, next: NextFunction) {

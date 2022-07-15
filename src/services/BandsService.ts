@@ -19,10 +19,16 @@ export class BandsService {
     return band;
   }
 
-  static update(id: number, name: string, style: string) {
-    console.log(
-      `Esse controller atualiza uma banda especificada pelo id ${id} nome da banda/cantor ${name} com o estilo ${style}`
-    );
+  static async update(id: number, name: string) {
+    // console.log(`Esse controller atualiza uma banda especificada pelo id ${id} nome da banda/cantor ${name} com o estilo ${style}`);
+    const bandRepository = getRepository(Band);
+    const band = await bandRepository.findOne(id);
+    const bandUpdated = bandRepository.merge(band, {
+      name,
+    });
+    await bandRepository.save(bandUpdated);
+    console.log(band, `alterado para ${bandUpdated.name}`);
+    return bandUpdated;
   }
 
   static async delete(id: number) {
