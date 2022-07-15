@@ -1,28 +1,50 @@
+import { getRepository } from "typeorm";
+import { Band } from "../entities/Band";
+
 export class BandsService {
-  static findAll() {
-    console.log("aqui vai retornar todos as bandas");
-    return "retorno do findAll";
+  static async findAll() {
+    // console.log("aqui vai retornar todos as bandas");
+    // return "retorno do findAll";
+    const bandRepository = getRepository(Band);
+    const bands = await bandRepository.find();
+    console.log(bands);
+    return bands;
   }
 
-  static create(id: number, name: string, style: string) {
-    console.log(id, name, style);
-    return `${id} ${name} ${style}`;
+  static async create(name: string, style: string) {
+    // console.log(id, name, style);
+    const bandRepository = getRepository(Band);
+    const band = bandRepository.create({ name, style });
+    await bandRepository.save(band);
+    return band;
   }
 
-  // ? conferir quais desses parametros realmente são necessarios, talvez pra fazer update precise apenas do id
   static update(id: number, name: string, style: string) {
     console.log(
       `Esse controller atualiza uma banda especificada pelo id ${id} nome da banda/cantor ${name} com o estilo ${style}`
     );
   }
 
-  static delete(id: number, name: string, style: string) {
-    console.log(`Esse controller deleta uma banda especificada pelo id ${id}`);
+  static async delete(id: number) {
+    // console.log(`Esse controller deleta uma banda especificada pelo id ${id}`);
+    const bandRepository = getRepository(Band);
+    const bands = await bandRepository.softRemove({ id });
+    console.log(bands);
+    return bands;
   }
 
-  static findById(id: number, name: string, style: string) {
-    console.log(
-      `Esse controller encontra uma banda especificada pelo id ${id}`
-    );
+  static async findById(id: number) {
+    // console.log( `Esse controller encontra uma banda especificada pelo id ${id}`);
+    const bandRepository = getRepository(Band);
+    const bands = await bandRepository.find({ id });
+    console.log(bands);
+    return bands;
   }
+
+  // static async findByName(name: string) {
+  //   const bandRepository = getRepository(Band);
+  //   const bands = await bandRepository.findOne({ name });
+  //   console.log(bands);
+  //   return bands;
+  // }
 }

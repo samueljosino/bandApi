@@ -13,4 +13,6 @@ bandRouter.delete("/:id", BandController.delete);
 
 bandRouter.get("/:id", BandController.findById);
 
+// bandRouter.get("/name", BandController.findByName);
+
 export { bandRouter };
