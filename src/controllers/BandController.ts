@@ -21,27 +21,33 @@ class BandController {
   }
 
   static update(req: Request, res: Response, next: NextFunction) {
-    console.log(req.body);
-    console.log(
-      `Esse controller atualiza uma banda espeficida pelo id ${req.params.id}`
-    );
-    res.status(200).json({});
+    // console.log(req.body);
+    // console.log( `Esse controller atualiza uma banda espeficida pelo id ${req.params.id}` );
+    const { id, name, style } = req.body;
+
+    const response = BandsService.update(id, name, style);
+    res.status(200).json({ response });
   }
 
   static delete(req: Request, res: Response, next: NextFunction) {
-    console.log(req.params);
-    console.log(
-      `este controller apaga uma banda especifica com id ${req.params.id}`
-    );
-    res.status(200).json({});
+    // console.log(req.params);
+    // console.log(
+    //   `este controller apaga uma banda especifica com id ${req.params.id}`
+    // );
+
+    const { id, name, style } = req.body;
+    const response = BandsService.delete(id, name, style);
+    res.status(200).json(response);
   }
 
   static findById(req: Request, res: Response, next: NextFunction) {
-    console.log(req.params);
-    console.log(
-      `este controller busca por uma banda especifico de id ${req.params.id}`
-    );
-    res.status(200).json({});
+    // console.log(req.params);
+    // console.log(
+    //   `este controller busca por uma banda especifico de id ${req.params.id}`
+    // );
+    const { id, name, style } = req.body;
+    const response = BandsService.findById(id, name, style);
+    res.status(200).json(response);
   }
 }
 
