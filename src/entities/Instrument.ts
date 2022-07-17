@@ -3,12 +3,15 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import { Musician } from "./musician";
 
-@Entity("band")
-export class Band {
+@Entity("instrument")
+export class Instrument {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -16,7 +19,7 @@ export class Band {
   name: string;
 
   @Column()
-  style: string;
+  type: string;
 
   @Column()
   @CreateDateColumn()
@@ -29,4 +32,9 @@ export class Band {
   @Column()
   @DeleteDateColumn()
   deletedAt: Date;
+
+  @Column()
+  @ManyToOne(() => Musician, (musician) => musician.intruments)
+  @JoinColumn({ name: "musician_id" })
+  musician: Musician[];
 }

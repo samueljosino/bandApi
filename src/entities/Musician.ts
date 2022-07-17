@@ -3,12 +3,14 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import { Instrument } from "./Instrument";
 
-@Entity("band")
-export class Band {
+@Entity("musician")
+export class Musician {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -29,4 +31,8 @@ export class Band {
   @Column()
   @DeleteDateColumn()
   deletedAt: Date;
+
+  @Column()
+  @OneToMany(() => Instrument, (instrument) => instrument.musician)
+  intruments: Instrument[];
 }
