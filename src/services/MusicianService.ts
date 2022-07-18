@@ -36,14 +36,27 @@ export class MusiciansService {
 
   static async findById(id: number) {
     const musicianRepository = getRepository(Musician);
-    const musicians = await musicianRepository.find({ id });
-    console.log(musicians);
-    return musicians;
+    const musician = await musicianRepository.findOne({
+      where: { id },
+    });
+    return musician;
   }
 
   // static async findByName(name: string) {
   //   const musicianRepository = getRepository(Musician);
   //   const musicians = await musicianRepository.findOne({ name });
+  //   console.log(musicians);
+  //   return musicians;
+  // }
+
+  // static async manyToOne(musician_id: number, name: string, style: string) {
+  //   if (!MusiciansService.findById) {
+  //     console.error(
+  //       "Musician ID não foi encontrado!! Tente novamente com um ID existente!"
+  //     );
+  //   }
+  //   const musicianRepository = getRepository(Musician);
+  //   const musicians = musicianRepository.create(musician_id);
   //   console.log(musicians);
   //   return musicians;
   // }

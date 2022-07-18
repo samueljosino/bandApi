@@ -1,40 +1,42 @@
 import { NextFunction, Request, Response } from "express";
+import { InstrumentsService } from "../services/InstrumentService";
 
 class InstrumentController {
-  static find(req: Request, res: Response, next: NextFunction) {
-    console.log("esse controller é para busca!!");
-    console.log(req.query);
-    // geralmente no get usamos apenas o query
-    res.status(200).json({});
+  static async findAll(req: Request, res: Response, next: NextFunction) {
+    const response = await InstrumentsService.findAll();
+    res.status(200).json(response);
   }
 
-  static create(req: Request, res: Response, next: NextFunction) {
-    console.log(req.body);
-    // no post é pra utilizar o body
-    console.log("este controller é para criação");
-    res.status(200).json({});
+  static async create(req: Request, res: Response, next: NextFunction) {
+    const { name, type, musicianId } = req.body;
+    const response = await InstrumentsService.create(musicianId, name, type);
+    res.status(200).json(response);
   }
 
   static update(req: Request, res: Response, next: NextFunction) {
-    console.log(req.params);
-    console.log(
-      `este controller atualiza um instrumento de id ${req.params.id} `
-    );
-    res.status(200).json({});
+    const { id } = req.params;
+    const { name } = req.body;
+    const response = InstrumentsService.update(id as any, name);
+    res.status(200).json(response);
   }
 
-  static delete(req: Request, res: Response, next: NextFunction) {
-    console.log(req.params);
-    console.log(`este controller apaga um instrumento com id ${req.params.id}`);
-    res.status(200).json({});
+  static async delete(req: Request, res: Response, next: NextFunction) {
+    const { id } = req.params;
+    const response = await InstrumentsService.delete(Number(id));
+    res.status(200).json(response);
   }
 
-  static findById(req: Request, res: Response, next: NextFunction) {
-    console.log(req.params);
-    console.log(
-      `este controller busca por um instrumento especifico de id ${req.params.id}`
-    );
-    res.status(200).json({});
+  static async findById(req: Request, res: Response, next: NextFunction) {
+    const { id } = req.params;
+    const response = await InstrumentsService.findById(Number(id));
+    res.status(200).json(response);
   }
+
+  // static async findByName(req: Request, res: Response, next: NextFunction) {
+  //   const { name } = req.query;
+  //   console.log(name);
+  //   const response = await InstrumentsService.findByName(name.toString());
+  //   res.status(200).json(response);
+  // }
 }
 export { InstrumentController };

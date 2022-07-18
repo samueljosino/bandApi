@@ -3,7 +3,7 @@ import { InstrumentController } from "../../controllers/instrumentController";
 
 const instrumentRouter = Router();
 
-instrumentRouter.get("/", InstrumentController.find);
+instrumentRouter.get("/", InstrumentController.findAll);
 
 instrumentRouter.post("/", InstrumentController.create);
 

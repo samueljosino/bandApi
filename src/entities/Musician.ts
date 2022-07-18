@@ -3,6 +3,7 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -20,6 +21,11 @@ export class Musician {
   @Column()
   style: string;
 
+  @OneToMany(() => Instrument, (instrument) => instrument.musician, {
+    eager: true,
+  })
+  instruments: Instrument[];
+
   @Column()
   @CreateDateColumn()
   createdAt: Date;
@@ -31,8 +37,4 @@ export class Musician {
   @Column()
   @DeleteDateColumn()
   deletedAt: Date;
-
-  @Column()
-  @OneToMany(() => Instrument, (instrument) => instrument.musician)
-  intruments: Instrument[];
 }

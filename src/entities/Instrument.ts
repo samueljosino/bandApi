@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
-import { Musician } from "./musician";
+import { Musician } from "./Musician";
 
 @Entity("instrument")
 export class Instrument {
@@ -21,6 +21,10 @@ export class Instrument {
   @Column()
   type: string;
 
+  @ManyToOne(() => Musician, (musician) => musician.instruments)
+  @JoinColumn()
+  musician: Musician;
+
   @Column()
   @CreateDateColumn()
   createdAt: Date;
@@ -32,9 +36,4 @@ export class Instrument {
   @Column()
   @DeleteDateColumn()
   deletedAt: Date;
-
-  @Column()
-  @ManyToOne(() => Musician, (musician) => musician.intruments)
-  @JoinColumn({ name: "musician_id" })
-  musician: Musician[];
 }

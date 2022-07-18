@@ -5,12 +5,11 @@ const typeORMConnectionOptions = {
   username: "postgres",
   password: "468146",
   database: "banddatabase",
-
-  entities: [`src/entities/*.[jt]s`],
+  entities: ["src/entities/*.{js,ts}"],
   synchronize: true,
-  migrations: [`src/database/migrations/*/.[jt]s`],
+  migrations: [`src/database/migrations/*/.ts`],
   seeds: [`src/database/seeds/*/{.ts,.js}`],
-  //   subscribers: [`/subscriber/*/.[jt]s`],
+  subscribers: [`/subscriber/*/.[jt]s`],
 
   cli: {
     entitiesDir: "src/entities",

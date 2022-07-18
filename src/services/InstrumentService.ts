@@ -1,7 +1,8 @@
 import { getRepository } from "typeorm";
 import { Instrument } from "../entities/Instrument";
+import { MusiciansService } from "./MusicianService";
 
-export class InstrumentService {
+export class InstrumentsService {
   static async findAll() {
     const instrumentRepository = getRepository(Instrument);
     const instruments = await instrumentRepository.find();
@@ -9,9 +10,18 @@ export class InstrumentService {
     return instruments;
   }
 
-  static async create(name: string, style: string) {
+  static async create(musicianId: number, name: string, type: string) {
+    // MusiciansService.find(id);
+    const musician = await MusiciansService.findById(musicianId);
+    if (!musician) {
+      throw new Error("Esse musician_ID não existe!");
+    }
     const instrumentRepository = getRepository(Instrument);
-    const instrument = instrumentRepository.create({ name, style });
+    const instrument = instrumentRepository.create({
+      name,
+      type,
+      musician,
+    });
     await instrumentRepository.save(instrument);
     return instrument;
   }
@@ -47,4 +57,16 @@ export class InstrumentService {
   //   console.log(instruments);
   //   return instruments;
   // }
+
+  static async manyToOne(musician_id: Number, name: string, type: string) {
+    if (!InstrumentsService.findById) {
+      console.error(
+        "Musician ID não foi encontrado!! Tente novamente com um ID existente!"
+      );
+    }
+    const instrumentRepository = getRepository(Instrument);
+    // const instruments = instrumentRepository.create(musician_id);
+    // console.log(instruments);
+    // return instruments;
+  }
 }

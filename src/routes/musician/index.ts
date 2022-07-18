@@ -3,7 +3,7 @@ import { MusicianController } from "../../controllers/MusicianController";
 
 const musicianRouter = Router();
 
-musicianRouter.get("/", MusicianController.find);
+musicianRouter.get("/", MusicianController.findAll);
 
 musicianRouter.post("/", MusicianController.create);
 
