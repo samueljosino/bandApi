@@ -13,6 +13,4 @@ instrumentRouter.delete("/:id", InstrumentController.delete);
 
 instrumentRouter.get("/:id", InstrumentController.findById);
 
-// find create update delete findbyid
-
 export { instrumentRouter };

@@ -11,7 +11,6 @@ export class InstrumentsService {
   }
 
   static async create(musicianId: number, name: string, type: string) {
-    // MusiciansService.find(id);
     const musician = await MusiciansService.findById(musicianId);
     if (!musician) {
       throw new Error("Esse musician_ID não existe!");
@@ -57,16 +56,4 @@ export class InstrumentsService {
   //   console.log(instruments);
   //   return instruments;
   // }
-
-  static async manyToOne(musician_id: Number, name: string, type: string) {
-    if (!InstrumentsService.findById) {
-      console.error(
-        "Musician ID não foi encontrado!! Tente novamente com um ID existente!"
-      );
-    }
-    const instrumentRepository = getRepository(Instrument);
-    // const instruments = instrumentRepository.create(musician_id);
-    // console.log(instruments);
-    // return instruments;
-  }
 }

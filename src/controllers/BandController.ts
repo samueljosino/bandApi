@@ -13,8 +13,13 @@ class BandController {
     // console.log(req.body);
     // console.log("Esse controller cria uma  banda") ;
     // res.status(200).json({});
-    const { name, style } = req.body;
-    const response = await BandsService.create(name, style);
+    const { name, style, band_musician_Id, studioName } = req.body;
+    const response = await BandsService.create(
+      band_musician_Id,
+      name,
+      style,
+      studioName
+    );
     res.status(200).json(response);
   }
 

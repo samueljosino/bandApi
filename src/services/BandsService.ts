@@ -1,26 +1,39 @@
 import { getRepository } from "typeorm";
 import { Band } from "../entities/Band";
+import { Studio } from "../entities/studio";
+import { MusiciansService } from "./MusicianService";
 
 export class BandsService {
   static async findAll() {
-    // console.log("aqui vai retornar todos as bandas");
-    // return "retorno do findAll";
     const bandRepository = getRepository(Band);
     const bands = await bandRepository.find();
     console.log(bands);
     return bands;
   }
 
-  static async create(name: string, style: string) {
-    // console.log(id, name, style);
+  static async create(
+    band_musician_Id: number,
+    name: string,
+    style: string,
+    studioName: string
+  ) {
+    const musician = await MusiciansService.findById(band_musician_Id);
+    if (!musician) {
+      throw new Error("Esse band_musician_Id não existe!");
+    }
+    const studio: Studio = getRepository(Studio).create({ name: studioName });
     const bandRepository = getRepository(Band);
-    const band = bandRepository.create({ name, style });
+    const band = bandRepository.create({
+      name,
+      style,
+      musician,
+      studios: studio,
+    });
     await bandRepository.save(band);
     return band;
   }
 
   static async update(id: number, name: string) {
-    // console.log(`Esse controller atualiza uma banda especificada pelo id ${id} nome da banda/cantor ${name} com o estilo ${style}`);
     const bandRepository = getRepository(Band);
     const band = await bandRepository.findOne(id);
     const bandUpdated = bandRepository.merge(band, {
@@ -28,6 +41,9 @@ export class BandsService {
     });
     await bandRepository.save(bandUpdated);
     console.log(band, `alterado para ${bandUpdated.name}`);
+    console.log(
+      `Esse controller atualiza uma banda especificada pelo id ${id} nome da banda/cantor ${name}`
+    );
     return bandUpdated;
   }
 

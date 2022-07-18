@@ -4,10 +4,13 @@ import {
   DeleteDateColumn,
   Entity,
   JoinColumn,
+  ManyToMany,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
+import { Band } from "./Band";
 import { Instrument } from "./Instrument";
 
 @Entity("musician")
@@ -21,11 +24,6 @@ export class Musician {
   @Column()
   style: string;
 
-  @OneToMany(() => Instrument, (instrument) => instrument.musician, {
-    eager: true,
-  })
-  instruments: Instrument[];
-
   @Column()
   @CreateDateColumn()
   createdAt: Date;
@@ -37,4 +35,9 @@ export class Musician {
   @Column()
   @DeleteDateColumn()
   deletedAt: Date;
+
+  @OneToMany(() => Instrument, (instrument) => instrument.musician, {
+    eager: true,
+  })
+  instruments: Instrument[];
 }
